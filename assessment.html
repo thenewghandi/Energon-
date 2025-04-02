@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Advisor - Assessment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Signika:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Signika', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #ffebee;
+        }
+        header {
+            background-color: #d32f2f;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        main {
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        section {
+            margin-bottom: 2rem;
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #d32f2f;
+            border-bottom: 2px solid #d32f2f;
+            padding-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #d32f2f;
+        }
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-family: 'Signika', sans-serif;
+            font-size: 1rem;
+        }
+        .radio-group, .checkbox-group {
+            margin-top: 0.5rem;
+        }
+        .radio-option, .checkbox-option {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        .radio-option input, .checkbox-option input {
+            margin-right: 0.5rem;
+        }
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        button {
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Signika', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #b71c1c;
+        }
+        button.secondary {
+            background-color: #f5f5f5;
+            color: #d32f2f;
+            border: 1px solid #d32f2f;
+        }
+        button.secondary:hover {
+            background-color: #e0e0e0;
+        }
+        footer {
+            background-color: #d32f2f;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Energon</h1>
+        <p>Household Energy Assessment</p>
+    </header>
+
+    <main>
+        <form id="assessmentForm" action="{{ url_for('assessment') }}" method="POST">
+            <section>
+                <h2>1. General Home Information</h2>
+                
+                <div class="form-group">
+                    <label for="homeSize">What is your home's size (in square feet)?</label>
+                    <input type="number" id="homeSize" name="homeSize" min="200" max="5000" step="50" required 
+                           placeholder="e.g., 1200 - typical 2-bedroom apartment">
+                </div>
+                
+                <div class="form-group">
+                    <label for="occupants">How many occupants live in your home?</label>
+                    <input type="number" id="occupants" name="occupants" min="1" max="10" step="1" required
+                           placeholder="e.g., 4 - two adults, two children">
+                </div>
+                
+                <div class="form-group">
+                    <label for="location">What is your location?</label>
+                    <input type="text" id="location" name="location" placeholder="e.g., Nairobi, Kenya" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>What type of home do you live in?</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="apartment" name="homeType" value="Apartment" required>
+                            <label for="apartment">Apartment</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="house" name="homeType" value="Standalone House">
+                            <label for="house">Standalone House</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="townhouse" name="homeType" value="Townhouse">
+                            <label for="townhouse">Townhouse</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>2. Appliance Usage</h2>
+                
+                <div class="form-group">
+                    <label>What major appliances do you use?</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="refrigerator" name="appliances" value="Refrigerator">
+                            <label for="refrigerator">Refrigerator</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="ac" name="appliances" value="AC">
+                            <label for="ac">Air Conditioner</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="heater" name="appliances" value="Heater">
+                            <label for="heater">Heater</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="washer" name="appliances" value="Washer">
+                            <label for="washer">Washer</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="dryer" name="appliances" value="Dryer">
+                            <label for="dryer">Dryer</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="oven" name="appliances" value="Oven">
+                            <label for="oven">Oven</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="microwave" name="appliances" value="Microwave">
+                            <label for="microwave">Microwave</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="fridgeHours">How many hours per day do you use your refrigerator?</label>
+                    <input type="number" id="fridgeHours" name="fridgeHours" min="0" max="24" step="1"
+                           placeholder="e.g., 24 - most fridges run continuously">
+                </div>
+                
+                <div class="form-group">
+                    <label for="acHours">How many hours per day do you use your air conditioner?</label>
+                    <input type="number" id="acHours" name="acHours" min="0" max="24" step="1"
+                           placeholder="e.g., 8 - typical daytime usage">
+                </div>
+                
+                <div class="form-group">
+                    <label for="heaterHours">How many hours per day do you use your heater?</label>
+                    <input type="number" id="heaterHours" name="heaterHours" min="0" max="24" step="1"
+                           placeholder="e.g., 6 - evening and early morning">
+                </div>
+            </section>
+
+            <section>
+                <h2>3. Energy Behavior & Habits</h2>
+                
+                <div class="form-group">
+                    <label>Do you turn off lights and appliances when not in use?</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="lightsYes" name="lightsOff" value="Yes" required>
+                            <label for="lightsYes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="lightsNo" name="lightsOff" value="No">
+                            <label for="lightsNo">No</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Do you use natural lighting during the day?</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="naturalLightYes" name="naturalLight" value="Yes" required>
+                            <label for="naturalLightYes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="naturalLightNo" name="naturalLight" value="No">
+                            <label for="naturalLightNo">No</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Do you unplug devices to avoid standby power?</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="unplugYes" name="unplug" value="Yes" required>
+                            <label for="unplugYes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="unplugNo" name="unplug" value="No">
+                            <label for="unplugNo">No</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="overnightUsage">How often do you use heating/cooling systems overnight?</label>
+                    <select id="overnightUsage" name="overnightUsage" required>
+                        <option value="">Select an option</option>
+                        <option value="Never">Never</option>
+                        <option value="Rarely">Rarely</option>
+                        <option value="Sometimes">Sometimes</option>
+                        <option value="Always">Always</option>
+                    </select>
+                </div>
+            </section>
+
+            <section>
+                <h2>4. Heating, Cooling, and Insulation</h2>
+                
+                <div class="form-group">
+                    <label>Do you use an air conditioner or heater?</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="acHeaterYes" name="acHeater" value="Yes" required>
+                            <label for="acHeaterYes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="acHeaterNo" name="acHeater" value="No">
+                            <label for="acHeaterNo">No</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="acHeaterHours">If yes, how many hours per day?</label>
+                    <input type="number" id="acHeaterHours" name="acHeaterHours" min="0" max="24" step="1"
+                           placeholder="e.g., 12 - combined AC/heater usage">
+                </div>
+                
+                <div class="form-group">
+                    <label for="preferredTemp">What is your preferred indoor temperature (°C)?</label>
+                    <input type="number" id="preferredTemp" name="preferredTemp" min="16" max="30" step="1"
+                           placeholder="e.g., 23 - common comfortable temperature">
+                </div>
+                
+                <div class="form-group">
+                    <label>Is your home well-insulated?</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="insulatedYes" name="insulated" value="Yes" required>
+                            <label for="insulatedYes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="insulatedNo" name="insulated" value="No">
+                            <label for="insulatedNo">No</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Do you use natural ventilation (e.g., open windows)?</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="ventilationYes" name="ventilation" value="Yes" required>
+                            <label for="ventilationYes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="ventilationNo" name="ventilation" value="No">
+                            <label for="ventilationNo">No</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="button-group">
+                <button type="button" class="secondary" onclick="window.location.href='index.html'">Back to Home</button>
+                <button type="submit">Get Energy Recommendations</button>
+            </div>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Energon. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Remove or comment out the existing script since we're using Flask's form handling
+    </script>
+</body>
+</html>
