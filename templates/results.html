@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energon - Your Recommendations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Signika:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Signika', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #ffebee;
+        }
+        header {
+            background-color: #d32f2f;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        main {
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .recommendations-container {
+            display: grid;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .recommendation {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 4px solid #d32f2f;
+            transition: transform 0.2s;
+        }
+        .recommendation:hover {
+            transform: translateY(-2px);
+        }
+        .recommendation-type {
+            font-size: 0.9rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+        .summary-box {
+            background-color: #fafafa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        .actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+        .button-secondary {
+            background-color: transparent;
+            border: 2px solid #d32f2f;
+            color: #d32f2f;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Signika', sans-serif;
+            transition: background-color 0.3s;
+            display: inline-block;
+        }
+        .button-secondary:hover {
+            background-color: #ffebee;
+        }
+        @media (max-width: 768px) {
+            .actions {
+                flex-direction: column;
+            }
+            button {
+                width: 100%;
+            }
+        }
+        button {
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Signika', sans-serif;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #b71c1c;
+        }
+        
+        /* New styles */
+        .estimated-savings {
+            background-color: #e8f5e9;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-left: 4px solid #4caf50;
+        }
+        
+        .recommendation i {
+            margin-right: 10px;
+            color: #d32f2f;
+        }
+        
+        .recommendation-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: #fafafa;
+            margin-top: 3rem;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+            }
+            .actions {
+                display: none;
+            }
+            .recommendation {
+                break-inside: avoid;
+                border: 1px solid #ddd;
+            }
+            footer {
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Your Energy Recommendations</h1>
+        <p>Based on your assessment results</p>
+    </header>
+
+    <main>
+        <div class="summary-box">
+            <h2><i class="fas fa-home"></i> Assessment Summary</h2>
+            {% if assessment_data %}
+                <p>Home Size: {{ assessment_data.homeSize|default('Not provided') }} sq ft</p>
+                <p>Location: {{ assessment_data.location|default('Not provided') }}</p>
+                <p>Occupants: {{ assessment_data.occupants|default('Not provided') }}</p>
+            {% else %}
+                <p>No assessment data available</p>
+            {% endif %}
+        </div>
+
+        <div class="estimated-savings">
+            <h2><i class="fas fa-piggy-bank"></i> Estimated Annual Savings</h2>
+            <p>By implementing these recommendations, you could save approximately:</p>
+            <h3>${{ savings|default('150-300') }} per year</h3>
+        </div>
+
+        <div class="recommendations-container">
+            {% if recommendations %}
+                {% for recommendation in recommendations %}
+                <div class="recommendation">
+                    <div class="recommendation-header">
+                        <i class="fas {% if recommendation.lower().startswith('consider') %}fa-lightbulb
+                            {% elif recommendation.lower().startswith('high probability') %}fa-chart-line
+                            {% elif 'temperature' in recommendation.lower() %}fa-temperature-half
+                            {% else %}fa-leaf{% endif %}">
+                        </i>
+                        <div class="recommendation-type">
+                            {% if recommendation is string %}
+                                {% if recommendation.lower().startswith('consider') %}
+                                    Suggestion
+                                {% elif recommendation.lower().startswith('high probability') %}
+                                    Analysis
+                                {% elif 'temperature' in recommendation.lower() %}
+                                    Climate Control
+                                {% else %}
+                                    Energy Tip
+                                {% endif %}
+                            {% else %}
+                                Energy Tip
+                            {% endif %}
+                        </div>
+                    </div>
+                    <p>{{ recommendation }}</p>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="recommendation">
+                    <p>No recommendations available. Please try the assessment again.</p>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="actions">
+            <button onclick="handlePrint()">Save as PDF</button>
+            <a href="/assessment" class="button-secondary">Modify Assessment</a>
+            <a href="/" class="button-secondary">Start New Assessment</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>Generated on {{ date|default('Not available') }}</p>
+        <p><small>These recommendations are based on general guidelines and your specific inputs. 
+        Actual savings may vary.</small></p>
+    </footer>
+
+    <script>
+        function handlePrint() {
+            try {
+                window.print();
+            } catch (error) {
+                alert('Unable to generate PDF. Please try again or use your browser\'s print function.');
+            }
+        }
+    </script>
+</body>
+</html>
