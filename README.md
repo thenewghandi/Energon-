@@ -27,7 +27,7 @@ Follow these steps to set up the project:
    ```bash
    git clone https://github.com/thenewghandi/Energon-.git
    cd Energon-
-2. **Set up your database configuration**
+2. **Set up your database configuration**:
    Open the database.py file and configure the database connection settings for your environment.
 3. **Install dependencies**
    ```bash
