@@ -27,25 +27,25 @@ Follow these steps to set up the project:
    ```bash
    git clone https://github.com/thenewghandi/Energon-.git
    cd Energon-
-2. ** Set up your database configuration
+2. **Set up your database configuration**
    Open the database.py file and configure the database connection settings for your environment.
-3. ** Install dependencies
+3. **Install dependencies**
    ```bash
    pip install Flask SQLAlchemy Pandas Matplotlib Requests 
-5. **Run the application
+5. **Run the application**
     ```bash
     python app.py
 
-##License
+## License
 
-**This project is licensed under the MIT License.
+This project is licensed under the MIT License.
    
-##Contributing
+## Contributing
 
-**Contributions are welcome! Please fork the repository and submit pull requests.
+Contributions are welcome! Please fork the repository and submit pull requests.
 
-##Contact
+## Contact
 
-**For questions or feedback, please contact:
+For questions or feedback, please contact:
 
     GitHub: thenewghandi
