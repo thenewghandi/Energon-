@@ -10,7 +10,7 @@ Energon is a comprehensive energy advisory platform designed to help users optim
 - **Database Integration**: Secure storage of your energy data.
 - **Web Application Interface**: User-friendly dashboard for monitoring.
 
-##Getting Started 
+## Getting Started 
 
 ### Prerequisites
 
@@ -36,16 +36,11 @@ Follow these steps to set up the project:
     ```bash
     python app.py
 
-## License
-
-This project is licensed under the MIT License.
-   
 ## Contributing
 
 Contributions are welcome! Please fork the repository and submit pull requests.
 
-## Contact
+## License
 
-For questions or feedback, please contact:
-
-    GitHub: thenewghandi
+This project is licensed under the MIT License.
+   
