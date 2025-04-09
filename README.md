@@ -12,24 +12,23 @@ Features
 
     Web Application Interface: User-friendly dashboard for monitoring
 
-  Getting Started
-Prerequisites
+  ### Prerequisites
 
-    Python 3.x
+Make sure you have the following installed:
 
-    SQL database (MySQL/PostgreSQL/SQLite)
+- **Python 3.x**
+- **SQL Database**: (MySQL/PostgreSQL/SQLite)
 
-    Required Python packages (list them here)
+---
 
-Installation
+### Installation
 
-    Clone this repository
+Follow these steps to set up the project:
 
-    Set up your database configuration in database.py
-
-    Install dependencies: pip install -r requirements.txt
-
-    Run the application: python app.py
+1. **Clone this repository**:
+   ```bash
+   git clone https://github.com/thenewghandi/Energon-.git
+   cd Energon-
 
 Usage
 
