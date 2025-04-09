@@ -1,25 +1,23 @@
-Energon - Energy Advisor System
-Overview
+# Energon - Energy Advisor System
+## Overview
 
 Energon is a comprehensive energy advisory platform designed to help users optimize their home energy consumption. The system provides personalized recommendations and insights based on your energy usage patterns.
-Features
 
-    Energy Consumption Analysis: Track and visualize your home energy usage
+## Features
 
-    Personalized Recommendations: Get tailored advice to reduce energy waste
+- **Energy Consumption Analysis**: Track and visualize your home energy usage.
+- **Personalized Recommendations**: Get tailored advice to reduce energy waste.
+- **Database Integration**: Secure storage of your energy data.
+- **Web Application Interface**: User-friendly dashboard for monitoring.
 
-    Database Integration: Secure storage of your energy data
+##Getting Started 
 
-    Web Application Interface: User-friendly dashboard for monitoring
-
-  ### Prerequisites
+### Prerequisites
 
 Make sure you have the following installed:
 
 - **Python 3.x**
 - **SQL Database**: (MySQL/PostgreSQL/SQLite)
-
----
 
 ### Installation
 
@@ -29,17 +27,25 @@ Follow these steps to set up the project:
    ```bash
    git clone https://github.com/thenewghandi/Energon-.git
    cd Energon-
+2. ** Set up your database configuration
+   Open the database.py file and configure the database connection settings for your environment.
+3. ** Install dependencies
+   ```bash
+   pip install Flask SQLAlchemy Pandas Matplotlib Requests 
+5. **Run the application
+    ```bash
+    python app.py
 
-Usage
+##License
 
-    Launch the Energon web application
+**This project is licensed under the MIT License.
+   
+##Contributing
 
-    Connect your energy monitoring devices
+**Contributions are welcome! Please fork the repository and submit pull requests.
 
-    View your dashboard for consumption insights
+##Contact
 
-    Implement the recommended energy-saving strategies
+**For questions or feedback, please contact:
 
-Contributing
-
-Contributions are welcome! Please fork the repository and submit pull requests.
+    GitHub: thenewghandi
